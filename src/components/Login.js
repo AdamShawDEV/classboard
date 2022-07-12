@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
 import styles from "./Login.module.css";
+import { useAuth } from './hooks/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+  const { logInWithEmailAndPassword,
+    signInWithGoogle,
+    getUser,
+    currentUser,
+    loading } = useAuth();
+
+  console.log(getUser());
 
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
-  }, [user, loading]);
-  
+    if (currentUser) navigate("/dashboard");
+  }, [loading, currentUser]);
+
   return (
     <div className={styles.login}>
       <div className={styles.login__container}>

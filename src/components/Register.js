@@ -9,25 +9,25 @@ import {
 import "./Register.module.css";
 
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [name, setName] = useState("");
+  // const [user, loading, error] = useAuthState(auth);
+  // const navigate = useNavigate();
 
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-  };
+  // const register = () => {
+  //   if (!name) alert("Please enter name");
+  //   registerWithEmailAndPassword(name, email, password);
+  // };
 
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate.replace("/dashboard");
-  }, [user, loading]);
+  // useEffect(() => {
+  //   if (loading) return;
+  //   if (user) navigate.replace("/dashboard");
+  // }, [user, loading]);
 
   return (
     <div className="register">
-      <div className="register__container">
+      {/* <div className="register__container">
         <input
           type="text"
           className="register__textBox"
@@ -61,7 +61,7 @@ function Register() {
         <div>
           Already have an account? <Link to="/">Login</Link> now.
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
