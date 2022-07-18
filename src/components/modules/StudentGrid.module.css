@@ -1,0 +1,16 @@
+.studentGrid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.studentFooter {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(27, 12, 115);
+}
+
+.countdownNumber {
+    font-size: 4rem;
+    font-weight: 800;
+}

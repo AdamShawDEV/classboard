@@ -31,6 +31,11 @@
 
 .register__google {
   background-color: #4285f4;
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border: none;
+  color: white;
 }
 
 .register div {

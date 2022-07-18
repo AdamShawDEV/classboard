@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
+import styles from "./modules/Login.module.css";
 import { useAuth } from './hooks/AuthContext';
 
 function Login() {
@@ -13,14 +13,12 @@ function Login() {
     currentUser,
     loading } = useAuth();
 
-  console.log(getUser());
-
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
       return;
     }
-    if (currentUser) navigate("/dashboard");
+    if (currentUser) navigate("/classes");
   }, [loading, currentUser]);
 
   return (

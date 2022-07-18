@@ -1,0 +1,48 @@
+.studentCard {
+    width: 10rem;
+    height: 10rem;
+    background-color: white;
+    margin: 5px;
+    border-radius: 15px;
+    box-shadow: 0 0 3px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  
+  .studentCard:hover {
+    background-color: aquamarine;
+  }
+  
+  .buttonBox {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .buttonBox > button {
+    height: 30px;
+    width: 110px;
+    padding: 0 .5rem;
+    border-radius: 25px;
+    border: none;
+    font-weight: 500;
+  }
+  
+  .plusButton {
+    background-color: green;
+  }
+  
+  .minusButton {
+    background-color: red;
+  }
+  
+  .points {
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 800;
+  }
+  
+  .studentName {
+    font-size: 2rem;
+    text-align: center;
+    overflow: hidden;
+  }

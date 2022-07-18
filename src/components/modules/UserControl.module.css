@@ -1,0 +1,15 @@
+.userContainer {
+    display: flex;
+  }
+  
+.userImage {
+    border-radius: 50%;
+    margin:0 .4rem;
+    height: 50px;
+  }
+  
+.userName {
+    align-self: center;
+    font-size: 1.5rem;
+    color: #FFF;
+  }

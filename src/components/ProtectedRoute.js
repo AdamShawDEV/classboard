@@ -13,6 +13,7 @@ function ProtectedRoute({ component, redirect }) {
         if (isAuthenticated()) {
             setIsAuthorized(true);
         } else {
+            setIsAuthorized(false);
             navigate(redirect);
         }
     });

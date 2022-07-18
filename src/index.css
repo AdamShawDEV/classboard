@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html, body, #root {
+  height: 100%;
+}
+
+.pageContent {
+  height: 100%;
+  display: grid;
+  grid: min-content auto min-content / 100%;
+}
+
+main {
+  background-color: blue;
+  overflow-y: auto;
+  height: 100%;
+}

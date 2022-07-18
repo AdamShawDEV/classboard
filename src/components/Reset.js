@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "./Reset.module.css";
+import { useAuth } from "./hooks/AuthContext";
+import styles from "./modules/Reset.module.css";
 
 function Reset() {
-  // const [email, setEmail] = useState("");
-  // const [user, loading, error] = useAuthState(auth);
-  // const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const { currentUser, loading, sendPasswordReset } = useAuth();
 
-  // useEffect(() => {
-  //   if (loading) return;
-  //   if (user) navigate("/dashboard");
-  // }, [user, loading]);
+  useEffect(() => {
+    if (loading) return;
+    if (currentUser) navigate("/dashboard");
+  }, [currentUser, loading]);
 
   return (
-    <div className="reset">
-      {/* <div className="reset__container">
+    <div className={styles.reset}>
+      <div className={styles.reset__container}>
         <input
           type="text"
-          className="reset__textBox"
+          className={styles.reset__textBox}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="E-mail Address"
         />
         <button
-          className="reset__btn"
+          className={styles.reset__btn}
           onClick={() => sendPasswordReset(email)}
         >
           Send password reset email
@@ -33,7 +33,7 @@ function Reset() {
         <div>
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
