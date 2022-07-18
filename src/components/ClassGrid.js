@@ -59,10 +59,6 @@ function ClassGrid() {
     } = useRequestData("/classes", {prop: "editors", condition: "array-contains", value: currentUser?.uid});
     const navigate = useNavigate();
 
-    useEffect(() => {
-      if (!currentUser) navigate('/');
-    });
-
     if (requestStatus === REQUEST_STATUS.FAILURE) return <div>An error has occyrred...</div>;
 
     return (

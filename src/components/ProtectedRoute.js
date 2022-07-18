@@ -5,22 +5,17 @@ import { Component, useEffect, useState } from 'react';
 
 function ProtectedRoute({ component, redirect }) {
     const navigate = useNavigate();
-    const [isAuthorized, setIsAuthorized] = useState(false);
-
-    const { isAuthenticated } = useAuth();
+    const { currentUser } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated()) {
-            setIsAuthorized(true);
-        } else {
-            setIsAuthorized(false);
+        if (!currentUser) {
             navigate(redirect);
         }
-    });
+    }, [currentUser]);
 
     return (
         <>
-            {isAuthorized && component}
+            {currentUser && component}
         </>
     );
 }
