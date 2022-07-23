@@ -1,6 +1,7 @@
 {
   "name": "classboard2",
   "version": "0.1.0",
+  "homepage": "https://classboard.adamshaw.dev/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
