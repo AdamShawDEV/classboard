@@ -139,6 +139,12 @@ function CountDownTimer() {
   );
 }
 
+function Loading() {
+  return (
+    <div>Loading...</div>
+  );
+}
+
 function StudentFooter() {
   return (
     <div className={styles.studentFooter}>
@@ -179,15 +185,16 @@ function StudentGrid() {
     <>
       <main>
         {canEdit && <StudentsToolbar createRecord={createRecord} classId={classId.id} />}
-        <div className={styles.studentGrid}>
-          {data.sort((a, b) => a.name > b.name).map((dataItem) => (
+        <div className={styles.studentGrid}>{requestStatus === REQUEST_STATUS.LOADING ? <Loading /> :
+        requestStatus === REQUEST_STATUS.SUCCESS ?
+          data.sort((a, b) => a.name > b.name).map((dataItem) => (
             <StudentCard key={dataItem.id}
               canEdit={canEdit}
               studentId={dataItem.id}
               studentName={dataItem.name}
               studentPoints={dataItem.points}
               updateRecord={updateRecord} />
-          ))}
+          )) : <div>An error has occyrred...</div> }
         </div>
       </main>
       {canEdit && <StudentFooter />}

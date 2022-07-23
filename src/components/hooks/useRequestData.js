@@ -18,6 +18,7 @@ function useRequestData(path, requestQuery = null) {
             const q = query(collection(db, path), where(requestQuery.prop, requestQuery.condition, requestQuery.value));
             const unSub = onSnapshot(q, snapshot => {
                 setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+                setRequestStatus(REQUEST_STATUS.SUCCESS);
             });
 
             return () => unSub();
@@ -25,6 +26,7 @@ function useRequestData(path, requestQuery = null) {
             const colectionRef = collection(db, path);
             const unSub = onSnapshot(colectionRef, snapshot => {
                 setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+                setRequestStatus(REQUEST_STATUS.SUCCESS);
             });
 
             return () => unSub();

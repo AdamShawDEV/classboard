@@ -2,18 +2,13 @@ import ClassItem from "./ClassItem";
 import styles from "./modules/ClassGrid.module.css";
 import { useRequestData, REQUEST_STATUS } from "./hooks/useRequestData";
 import { useAuth } from './hooks/AuthContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Modal from "./Modal";
-import { useNavigate } from "react-router-dom";
 
 function AddClassWithCode({ returnRecord, updateRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shareCode, setShareCode] = useState('');
   const { currentUser } = useAuth();
-
-  function handleClick() {
-    setIsModalOpen(true);
-  }
 
   function closeModal() {
     setShareCode('');
@@ -23,11 +18,11 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const shareData = await returnRecord(shareCode, '/shareCodes/');
+    const shareData = await returnRecord(shareCode.trim(), '/shareCodes/');
     console.log(shareData);
 
     if (!shareData) {
-      alert('invalud code');
+      alert('Invalid code.');
       closeModal();
       return;
     }
@@ -52,7 +47,7 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
 
   return (
     <>
-      <button onClick={handleClick}>Add Class With Code</button>
+      <button onClick={() => setIsModalOpen(true)}>Add Class With Code</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add Class With Code">
@@ -116,6 +111,12 @@ function AddClassButton({ createRecord, userId }) {
   );
 }
 
+function Loading() {
+  return (
+    <div>Loading</div>
+  );
+}
+
 function ClassGrid() {
   const { currentUser } = useAuth();
   const {
@@ -125,9 +126,6 @@ function ClassGrid() {
     updateRecord,
     returnRecord
   } = useRequestData("/classes", { prop: "editors", condition: "array-contains", value: currentUser?.uid });
-  const navigate = useNavigate();
-
-  if (requestStatus === REQUEST_STATUS.FAILURE) return <div>An error has occyrred...</div>;
 
   return (
     <>
@@ -137,13 +135,14 @@ function ClassGrid() {
           <AddClassWithCode updateRecord={updateRecord} returnRecord={returnRecord} />
         </div>
         <div className={styles.classGrid}>
-          {data.sort((a, b) => a.name > b.name).map((dataItem, idx) => (
-            <ClassItem
-              key={idx}
-              nameOfClass={dataItem.name}
-              classId={dataItem.id}
-            />
-          ))}
+          {requestStatus === REQUEST_STATUS.LOADING ? <Loading /> : requestStatus === REQUEST_STATUS.SUCCESS ?
+            data.sort((a, b) => a.name > b.name).map((dataItem, idx) => (
+              <ClassItem
+                key={idx}
+                nameOfClass={dataItem.name}
+                classId={dataItem.id}
+              />
+            )) : <div>An error has occurred...</div>}
         </div>
       </main>
     </>
