@@ -17,11 +17,9 @@ function AddStudentButton({ createRecord }) {
       name: studentName,
       points: 0
     };
-    try {
-      createRecord(newStudent);
-    } catch (e) {
-      console.log(e);
-    }
+
+    createRecord(newStudent);
+
 
     setStudentName("");
     setIsModalOpen(false);
@@ -35,13 +33,13 @@ function AddStudentButton({ createRecord }) {
         heading="Add New Student">
         <form onSubmit={event => handleSubmit(event)}>
           <label>Student Name</label>
-          <input 
-          type="text" 
-          onChange={e => setStudentName(e.target.value)}
-          value={studentName} 
-          placeholder="Enter name..." 
-          required
-          autoFocus />
+          <input
+            type="text"
+            onChange={e => setStudentName(e.target.value)}
+            value={studentName}
+            placeholder="Enter name..."
+            required
+            autoFocus />
           <button type="submit" value="Submit">Submit</button>
         </form>
       </Modal>
@@ -49,17 +47,43 @@ function AddStudentButton({ createRecord }) {
   );
 }
 
-function ShareClassButton() {
+function ShareClassButton({ createRecord, classId }) {
+  const { currentUser } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shareCode, setShareCode] = useState('');
+
+  async function handleClick() {
+    const rec = {
+      owner: currentUser.uid,
+      classId,
+      isUsed: false,
+      created: new Date(),
+    };
+
+    const docRef = await createRecord(rec, '/shareCodes/');
+    setShareCode(docRef.id);
+    setIsModalOpen(true);
+    console.log(rec);
+  }
+
   return (
-    <button>Share Class</button>
+    <>
+      <button onClick={handleClick}>Share Class</button>
+      <Modal
+        handleClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen}
+        heading="Share Class">
+          <p>Share code: <span>{shareCode}</span></p>
+      </Modal>
+    </>
   );
 }
 
-function StudentsToolbar({ createRecord }) {
+function StudentsToolbar({ createRecord, classId }) {
   return (
     <div className="toolBar">
       <AddStudentButton createRecord={createRecord} />
-      <ShareClassButton />
+      <ShareClassButton createRecord={createRecord} classId={classId} />
     </div>
   )
 }
@@ -154,7 +178,7 @@ function StudentGrid() {
   return (
     <>
       <main>
-        {canEdit && <StudentsToolbar createRecord={createRecord} />}
+        {canEdit && <StudentsToolbar createRecord={createRecord} classId={classId.id} />}
         <div className={styles.studentGrid}>
           {data.sort((a, b) => a.name > b.name).map((dataItem) => (
             <StudentCard key={dataItem.id}

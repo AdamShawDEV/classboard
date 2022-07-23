@@ -31,13 +31,13 @@ function useRequestData(path, requestQuery = null) {
         }
     }), []);
 
-    function createRecord(rec) {
-        const colectionRef = collection(db, path);
-        addDoc(colectionRef, rec);
+    async function createRecord(rec, docPath = path) {
+        const colectionRef = collection(db, docPath);
+        return await addDoc(colectionRef, rec);
     }
 
-    function updateRecord(id, rec) {
-        const docRef = doc(db, path, id);
+    function updateRecord(id, rec, docPath = path) {
+        const docRef = doc(db, docPath, id);
         updateDoc(docRef, rec);
     }
 
