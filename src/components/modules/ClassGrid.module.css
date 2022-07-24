@@ -1,5 +1,27 @@
 .classGrid {
     display: flex;
+    height: calc(100% - 2.8rem);
     justify-content: center;
+    align-content: center;
     flex-wrap: wrap;
+  }
+
+  .toolbar {
+    background-color: rgb(28, 37, 160);
+    height: 2.8rem;
+  }
+
+  .toolbarButton {
+    background-color: rgb(70, 82, 255);
+    border-radius: .4rem;
+    border: none;
+    padding: 0 .4rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: .4rem .4rem;
+  }
+
+  .toolbarButton:hover {
+    background-color: rgb(101, 111, 253);
   }

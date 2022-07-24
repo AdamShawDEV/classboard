@@ -1,6 +1,6 @@
-.studentCard {
-    width: 10rem;
-    height: 10rem;
+.classCard {
+    width: 15rem;
+    height: 3rem;
     background-color: white;
     margin: 5px;
     border-radius: 15px;
@@ -8,7 +8,7 @@
     cursor: pointer;
   }
   
-  .studentCard:hover {
+  .classCard:hover {
     background-color: aquamarine;
   }
   
@@ -26,21 +26,7 @@
     font-weight: 500;
   }
   
-  .plusButton {
-    background-color: green;
-  }
-  
-  .minusButton {
-    background-color: red;
-  }
-  
-  .studentCard > .points {
-    font-size: 4rem;
-    text-align: center;
-    font-weight: 800;
-  }
-  
-  .studentCard > .studentName {
+  .name {
     font-size: 2rem;
     text-align: center;
   }

@@ -47,7 +47,8 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
 
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>Add Class With Code</button>
+      <button onClick={() => setIsModalOpen(true)}
+        className={styles.toolbarButton}>Add Class With Code</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add Class With Code">
@@ -91,7 +92,8 @@ function AddClassButton({ createRecord, userId }) {
 
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>Creat New Class</button>
+      <button onClick={() => setIsModalOpen(true)}
+        className={styles.toolbarButton}>Creat New Class</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add New Class">
@@ -130,7 +132,7 @@ function ClassGrid() {
   return (
     <>
       <main>
-        <div>
+        <div className={styles.toolbar} >
           <AddClassButton createRecord={createRecord} userId={currentUser?.uid} />
           <AddClassWithCode updateRecord={updateRecord} returnRecord={returnRecord} />
         </div>

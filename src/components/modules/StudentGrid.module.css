@@ -1,16 +1,95 @@
 .studentGrid {
     display: flex;
+    height: calc(100% - 2.8rem);
     justify-content: center;
+    align-content: center;
     flex-wrap: wrap;
 }
 
 .studentFooter {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
     display: flex;
     justify-content: center;
     background-color: rgb(27, 12, 115);
+    background-color: rgb(28, 37, 160);
+    height: 2.8rem;
 }
 
 .countdownNumber {
     font-size: 4rem;
     font-weight: 800;
 }
+
+.toolbar {
+    background-color: rgb(28, 37, 160);
+    height: 2.8rem;
+}
+
+.toolbarButton {
+    background-color: rgb(70, 82, 255);
+    border-radius: .4rem;
+    border: none;
+    padding: 0 .4rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: .4rem .4rem;
+}
+
+.toolbarButton:hover {
+    background-color: rgb(101, 111, 253);
+}
+
+/* Share Button */
+
+.shareHeading {
+    font-size: 1rem;
+}
+
+.shareCode {
+    font-weight: 600;
+}
+
+.shareMessage {
+    font-size: 1rem;
+}
+
+/* Add student dialog */
+
+.addStudentForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.addStudentForm > label {
+    font-size: 1rem;
+}
+
+.addStudentForm > input {
+    border-radius: .4rem;
+    margin: .4rem 0;
+    font-size: 1.2rem;
+}
+
+.addStudentForm > div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.addStudentForm  button {
+    background-color: rgb(186, 190, 251);
+    border-radius: .4rem;
+    border: none;
+    padding: 0 .4rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: .4rem .4rem;
+  }
+
+  .addStudentForm  button:hover {
+    background-color: rgb(101, 111, 253);
+  }

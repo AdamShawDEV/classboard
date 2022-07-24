@@ -5,8 +5,8 @@ function ClassItem({ nameOfClass, classId }) {
     const navigate = useNavigate();
     
     return (
-      <div className={styles.studentCard} onClick={() => navigate(`/class/${classId}`)}>
-        <div className={styles.studentName} >{nameOfClass}</div>
+      <div className={styles.classCard} onClick={() => navigate(`/class/${classId}`)}>
+        <div className={styles.name} >{nameOfClass}</div>
       </div>);
   };
 

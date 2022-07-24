@@ -27,12 +27,14 @@ function AddStudentButton({ createRecord }) {
 
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>Add Student</button>
+      <button onClick={() => setIsModalOpen(true)}
+        className={styles.toolbarButton}>Add Student</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add New Student">
-        <form onSubmit={event => handleSubmit(event)}>
-          <label>Student Name</label>
+        <form onSubmit={event => handleSubmit(event)}
+          className={styles.addStudentForm}>
+          <label>Student Name:</label>
           <input
             type="text"
             onChange={e => setStudentName(e.target.value)}
@@ -40,7 +42,10 @@ function AddStudentButton({ createRecord }) {
             placeholder="Enter name..."
             required
             autoFocus />
-          <button type="submit" value="Submit">Submit</button>
+          <div>
+            <button type="submit" value="Submit">Submit</button>
+            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+          </div>
         </form>
       </Modal>
     </>
@@ -68,12 +73,15 @@ function ShareClassButton({ createRecord, classId }) {
 
   return (
     <>
-      <button onClick={handleClick}>Share Class</button>
+      <button onClick={handleClick}
+        className={styles.toolbarButton}>Share Class</button>
       <Modal
         handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Share Class">
-          <p>Share code: <span>{shareCode}</span></p>
+        <p className={styles.shareMessage}>Copy and send the code below to share this class with another teacher.</p>
+        <div className={styles.shareHeading}>Share code:</div>
+        <span className={styles.shareCode}>{shareCode}</span>
       </Modal>
     </>
   );
@@ -81,7 +89,7 @@ function ShareClassButton({ createRecord, classId }) {
 
 function StudentsToolbar({ createRecord, classId }) {
   return (
-    <div className="toolBar">
+    <div className={styles.toolbar}>
       <AddStudentButton createRecord={createRecord} />
       <ShareClassButton createRecord={createRecord} classId={classId} />
     </div>
@@ -116,7 +124,8 @@ function CountDownTimer() {
 
   return (
     <>
-      <button onClick={() => setTimerActive(true)}>
+      <button onClick={() => setTimerActive(true)}
+        className={styles.toolbarButton}>
         Count Down Timer
       </button>
       <Modal
@@ -186,15 +195,15 @@ function StudentGrid() {
       <main>
         {canEdit && <StudentsToolbar createRecord={createRecord} classId={classId.id} />}
         <div className={styles.studentGrid}>{requestStatus === REQUEST_STATUS.LOADING ? <Loading /> :
-        requestStatus === REQUEST_STATUS.SUCCESS ?
-          data.sort((a, b) => a.name > b.name).map((dataItem) => (
-            <StudentCard key={dataItem.id}
-              canEdit={canEdit}
-              studentId={dataItem.id}
-              studentName={dataItem.name}
-              studentPoints={dataItem.points}
-              updateRecord={updateRecord} />
-          )) : <div>An error has occyrred...</div> }
+          requestStatus === REQUEST_STATUS.SUCCESS ?
+            data.sort((a, b) => a.name > b.name).map((dataItem) => (
+              <StudentCard key={dataItem.id}
+                canEdit={canEdit}
+                studentId={dataItem.id}
+                studentName={dataItem.name}
+                studentPoints={dataItem.points}
+                updateRecord={updateRecord} />
+            )) : <div>An error has occyrred...</div>}
         </div>
       </main>
       {canEdit && <StudentFooter />}
