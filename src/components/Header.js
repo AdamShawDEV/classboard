@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.pageTitle}>
-        <img alt="logo" src={Logo} />
+        <img alt="logo" src={Logo} className={styles.logo} />
       </div>
       <UserControl />
     </header>

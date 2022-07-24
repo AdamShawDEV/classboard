@@ -9,7 +9,6 @@ function Login() {
   const navigate = useNavigate();
   const { logInWithEmailAndPassword,
     signInWithGoogle,
-    getUser,
     currentUser,
     loading } = useAuth();
 
@@ -22,7 +21,8 @@ function Login() {
   }, [loading, currentUser]);
 
   return (
-    <div className={styles.login}>
+    <main className={styles.login}>
+      <h1 className={styles.title}>Teacher Login</h1>
       <div className={styles.login__container}>
         <input
           type="text"
@@ -54,7 +54,7 @@ function Login() {
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 export default Login;

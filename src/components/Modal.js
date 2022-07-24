@@ -36,16 +36,6 @@ function Modal({ children, heading,  isOpen, handleClose }) {
                         <div className={styles.modalContent}>
                             {children}
                         </div>
-                        <div className={styles.modalActions}>
-                            <div className={styles.actionsContainer}>
-                                <button
-                                    className={styles.cancelBtn}
-                                    onClick={handleClick}
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

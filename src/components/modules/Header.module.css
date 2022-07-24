@@ -5,14 +5,17 @@
     padding: .4rem;
     height: 50px;
   }
+
+  .logo {
+    max-width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
   
 .pageTitle {
     display: flex;
   }
   
-.pageTitle_div {
-    color: orange;
-    font-size: 2rem;
-    font-weight: 800;
-    margin-left: .4rem;
+.pageTitle {
+    margin-right: .4rem;
   }

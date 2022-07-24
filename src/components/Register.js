@@ -25,7 +25,8 @@ function Register() {
   }, [currentUser, loading]);
 
   return (
-    <div className={styles.register} >
+    <main className={styles.register} >
+      <h1 className={styles.title}>Teacher Registration</h1>
       <div className={styles.register__container} >
         <input
           type="text"
@@ -61,7 +62,7 @@ function Register() {
           Already have an account? <Link to="/">Login</Link> now.
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

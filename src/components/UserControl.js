@@ -1,17 +1,34 @@
 import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
+import { useState } from 'react';
 import { useAuth } from './hooks/AuthContext';
 import styles from './modules/UserControl.module.css';
+import Modal from './Modal';
 
 function UserBadge() {
-    const { currentUser } = useAuth();
+    const { currentUser, logout } = useAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    function cancel(e) {
+        e.stopPropagation();
+
+        setIsModalOpen(false);
+    }
 
     return (
-        <>
+        <div onClick={() => setIsModalOpen(true)} className={styles.logedIn}>
             <div className={styles.userName}>{currentUser?.displayName}</div>
             <img src={currentUser?.photoURL} className={styles.userImage} />
-            <LogoutButton />
-        </>
+            <Modal handleClose={() => setIsModalOpen(false)}
+                isOpen={isModalOpen}
+                heading="Logout?">
+                <div className={styles.buttonBox}>
+                    <button className={styles.button}
+                        onClick={() => logout()}>Logout</button>
+                    <button className={styles.button}
+                        onClick={(e) => cancel(e)} >Cancel</button>
+                </div>
+            </Modal>
+        </div>
     );
 }
 

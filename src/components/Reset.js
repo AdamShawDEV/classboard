@@ -15,7 +15,8 @@ function Reset() {
   }, [currentUser, loading]);
 
   return (
-    <div className={styles.reset}>
+    <main className={styles.reset}>
+      <h1 className={styles.title}>Reset Password</h1>
       <div className={styles.reset__container}>
         <input
           type="text"
@@ -34,7 +35,7 @@ function Reset() {
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
