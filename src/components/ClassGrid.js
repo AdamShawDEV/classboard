@@ -93,7 +93,7 @@ function AddClassButton({ createRecord, userId }) {
   return (
     <>
       <button onClick={() => setIsModalOpen(true)}
-        className={styles.toolbarButton}>Creat New Class</button>
+        className={styles.toolbarButton}>Create New Class</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add New Class">

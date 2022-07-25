@@ -4,8 +4,8 @@
   
 .userImage {
     border-radius: 50%;
-    margin:0 .4rem;
     height: 50px;
+    margin-left: .4rem;
   }
   
 .userName {
@@ -15,9 +15,15 @@
     color: #FFF;
   }
 
-  .logedIn {
+  .loggedIn {
     display: flex;
     cursor: pointer;
+    padding: 0 .4rem;
+  }
+
+  .loggedIn:hover {
+    border-radius: .4rem;
+    background-color: rgb(102, 91, 254);
   }
 
   .buttonBox {

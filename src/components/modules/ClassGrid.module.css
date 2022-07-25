@@ -2,13 +2,13 @@
     display: flex;
     height: calc(100% - 2.8rem);
     justify-content: center;
-    align-content: center;
+    align-content: flex-start;
     flex-wrap: wrap;
   }
 
   .toolbar {
     background-color: rgb(28, 37, 160);
-    height: 2.8rem;
+    height: 2.8rem;    
   }
 
   .toolbarButton {
