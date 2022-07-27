@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from './hooks/AuthContext'
 import Modal from "./Modal";
 import DeleteButton from "./DeleteButtton";
+import Loading from "./Loading";
 
 function AddStudentButton({ createRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -150,12 +151,6 @@ function CountDownTimer() {
   );
 }
 
-function Loading() {
-  return (
-    <div>Loading...</div>
-  );
-}
-
 function StudentFooter() {
   return (
     <div className={styles.studentFooter}>
@@ -175,6 +170,7 @@ function StudentGrid() {
     returnRecord,
     updateRecord,
     createRecord,
+    deleteRecord,
   } = useRequestData(`/classes/${classId.id}/students/`);
 
   useEffect(() => {
@@ -209,7 +205,9 @@ function StudentGrid() {
                 studentId={dataItem.id}
                 studentName={dataItem.name}
                 studentPoints={dataItem.points}
-                updateRecord={updateRecord} />
+                updateRecord={updateRecord}
+                isDeleteEnabled={isDeleteEnabled}
+                deleteRecord={deleteRecord} />
             )) : <div>An error has occyrred...</div>}
         </div>
       </main>

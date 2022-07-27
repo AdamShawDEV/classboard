@@ -1,11 +1,11 @@
 .studentCard {
     width: 10rem;
-    height: 9.5rem;
     background-color: white;
     margin: 5px;
     border-radius: 15px;
     box-shadow: 0 0 3px 4px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+    padding: .4rem;
   }
   
   .studentCard:hover {
@@ -46,3 +46,23 @@
     text-align: center;
     overflow: hidden;
   }
+
+  .deleteButtonContainer {
+    position: relative;
+    text-align: right;
+    margin-bottom: -2.4rem;
+  }
+
+  .deleteButton {
+    background-color: red;
+    padding: .4rem;
+    padding-bottom: .2rem;
+    color: white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    border: none;
+  }
+
+  .deleteButton:hover {
+    background-color: rgb(255, 87, 87);
+  } 

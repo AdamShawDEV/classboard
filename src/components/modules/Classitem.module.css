@@ -31,6 +31,12 @@
     text-align: center;
   }
 
+  .deleteButtonContainer {
+    position: relative;
+    text-align: right;
+    margin-bottom: -2.4rem;
+  }
+
   .deleteButton {
     background-color: red;
     padding: .4rem;
@@ -39,9 +45,4 @@
     border-radius: 50%;
     font-size: 1.5rem;
     border: none;
-    margin-left: .4rem;
-  }
-
-  .deleteButton:hover {
-    background-color: rgb(255, 87, 87);
   }

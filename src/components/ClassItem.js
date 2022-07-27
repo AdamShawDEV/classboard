@@ -13,11 +13,10 @@ function ClassItem({ nameOfClass, classId, isDeleteEnabled, deleteRecord }) {
 
   return (
     <div className={styles.classCard} onClick={() => navigate(`/class/${classId}`)}>
-      <div className={styles.name} >{nameOfClass}
-        {isDeleteEnabled && <button
-          className={styles.deleteButton}
-          onClick={(e) => deleteClass(e)}><RiDeleteBin5Fill /></button>}
-      </div>
+      {isDeleteEnabled && <div className={styles.deleteButtonContainer} ><button
+        className={styles.deleteButton}
+        onClick={(e) => deleteClass(e)}><RiDeleteBin5Fill /></button></div>}
+      <div className={styles.name} >{nameOfClass}</div>
     </div>);
 };
 

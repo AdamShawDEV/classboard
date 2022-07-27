@@ -10,7 +10,7 @@ function DeleteButton({ isDeleteEnabled, setIsDeleteEnabled }) {
       <button
         className={styles.toolbarButton}
         onClick={onClickHandler}
-        style={{ backgroundColor: (isDeleteEnabled ? "red" : 'rgb(70, 82, 255)') }} >Delete Items</button>
+        style={isDeleteEnabled ? { backgroundColor:  "red" } : null} >Delete Items</button>
     )
   }
 
