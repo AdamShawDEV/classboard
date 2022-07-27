@@ -1,6 +1,6 @@
 .classCard {
     width: 15rem;
-    height: 3rem;
+    padding: .4rem;
     background-color: white;
     margin: 5px;
     border-radius: 15px;
@@ -29,4 +29,19 @@
   .name {
     font-size: 2rem;
     text-align: center;
+  }
+
+  .deleteButton {
+    background-color: red;
+    padding: .4rem;
+    padding-bottom: .2rem;
+    color: white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    border: none;
+    margin-left: .4rem;
+  }
+
+  .deleteButton:hover {
+    background-color: rgb(255, 87, 87);
   }

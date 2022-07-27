@@ -4,6 +4,8 @@ import { useRequestData, REQUEST_STATUS } from "./hooks/useRequestData";
 import { useAuth } from './hooks/AuthContext';
 import { useState } from 'react';
 import Modal from "./Modal";
+import DeleteButton from "./DeleteButtton";
+import Loading from "./Loading";
 
 function AddClassWithCode({ returnRecord, updateRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,20 +115,16 @@ function AddClassButton({ createRecord, userId }) {
   );
 }
 
-function Loading() {
-  return (
-    <div>Loading</div>
-  );
-}
-
 function ClassGrid() {
   const { currentUser } = useAuth();
+  const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const {
     data,
     requestStatus,
     createRecord,
     updateRecord,
-    returnRecord
+    returnRecord,
+    deleteRecord,
   } = useRequestData("/classes", { prop: "editors", condition: "array-contains", value: currentUser?.uid });
 
   return (
@@ -135,6 +133,7 @@ function ClassGrid() {
         <div className={styles.toolbar} >
           <AddClassButton createRecord={createRecord} userId={currentUser?.uid} />
           <AddClassWithCode updateRecord={updateRecord} returnRecord={returnRecord} />
+          <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
         </div>
         <div className={styles.classGrid}>
           {requestStatus === REQUEST_STATUS.LOADING ? <Loading /> : requestStatus === REQUEST_STATUS.SUCCESS ?
@@ -143,6 +142,8 @@ function ClassGrid() {
                 key={idx}
                 nameOfClass={dataItem.name}
                 classId={dataItem.id}
+                isDeleteEnabled={isDeleteEnabled}
+                deleteRecord={deleteRecord}
               />
             )) : <div>An error has occurred...</div>}
         </div>

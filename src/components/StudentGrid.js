@@ -5,6 +5,7 @@ import { useRequestData, REQUEST_STATUS } from "./hooks/useRequestData";
 import { useState, useEffect } from "react";
 import { useAuth } from './hooks/AuthContext'
 import Modal from "./Modal";
+import DeleteButton from "./DeleteButtton";
 
 function AddStudentButton({ createRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,11 +88,12 @@ function ShareClassButton({ createRecord, classId }) {
   );
 }
 
-function StudentsToolbar({ createRecord, classId }) {
+function StudentsToolbar({ createRecord, classId, isDeleteEnabled, setIsDeleteEnabled }) {
   return (
     <div className={styles.toolbar}>
       <AddStudentButton createRecord={createRecord} />
       <ShareClassButton createRecord={createRecord} classId={classId} />
+      <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
     </div>
   )
 }
@@ -164,6 +166,7 @@ function StudentFooter() {
 
 function StudentGrid() {
   const [classInfo, setClassInfo] = useState({});
+  const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const { currentUser } = useAuth();
   const classId = useParams();
   const {
@@ -193,7 +196,11 @@ function StudentGrid() {
   return (
     <>
       <main>
-        {canEdit && <StudentsToolbar createRecord={createRecord} classId={classId.id} />}
+        {canEdit && <StudentsToolbar
+          createRecord={createRecord}
+          classId={classId.id}
+          isDeleteEnabled={isDeleteEnabled}
+          setIsDeleteEnabled={setIsDeleteEnabled} />}
         <div className={styles.studentGrid}>{requestStatus === REQUEST_STATUS.LOADING ? <Loading /> :
           requestStatus === REQUEST_STATUS.SUCCESS ?
             data.sort((a, b) => a.name > b.name).map((dataItem) => (
