@@ -1,21 +1,49 @@
 .header {
-    background-color: darkblue;
-    display: flex;
-    justify-content: space-between;
-    padding: .4rem;
-    height: 50px;
+  background-color: darkblue;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: .4rem;
+}
+
+.logo {
+  max-width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.pageTitle {
+  display: flex;
+}
+
+.pageTitle {
+  margin-right: .4rem;
+}
+
+.classNameStyle {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 600;
+  align-self: center;
+  order: 1;
+  flex-grow: 1;
+  text-align: center;
+  min-width: 200px;
+}
+
+@media screen and (min-width: 582px) {
+  .header {
+    flex-wrap: nowrap;
   }
 
-  .logo {
-    max-width: 100%;
-    max-width: 100%;
-    object-fit: contain;
+  .classNameStyle {
+    order: 0;
   }
-  
-.pageTitle {
-    display: flex;
+}
+
+@media screen and (max-width: 520px) {
+  .pageTitle {
+    width: 150px;
+    flex-grow: 2;
   }
-  
-.pageTitle {
-    margin-right: .4rem;
-  }
+}

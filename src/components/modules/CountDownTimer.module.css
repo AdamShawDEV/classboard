@@ -1,0 +1,15 @@
+.countdownNumber {
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+.toolbarButton {
+    background-color: rgb(70, 82, 255);
+    border-radius: .4rem;
+    border: none;
+    padding: 0 .4rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: .4rem .4rem;
+}

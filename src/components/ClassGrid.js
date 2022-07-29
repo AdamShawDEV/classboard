@@ -2,10 +2,11 @@ import ClassItem from "./ClassItem";
 import styles from "./modules/ClassGrid.module.css";
 import { useRequestData, REQUEST_STATUS } from "./hooks/useRequestData";
 import { useAuth } from './hooks/AuthContext';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from "./Modal";
 import DeleteButton from "./DeleteButtton";
 import Loading from "./Loading";
+import Toolbar from "./Toolbar";
 
 function AddClassWithCode({ returnRecord, updateRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +51,7 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
   return (
     <>
       <button onClick={() => setIsModalOpen(true)}
-        className={styles.toolbarButton}>Add Class With Code</button>
+        className={styles.toolbarButton}>Add With Code</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add Class With Code">
@@ -72,30 +73,31 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
 
 function AddClassButton({ createRecord, userId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [className, setClassName] = useState("");
+  const [newClassName, setNewClassName] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
 
     const newClass = {
-      name: className,
+      name: newClassName,
       owner: userId,
       editors: [userId],
     };
+    
     try {
       createRecord(newClass);
     } catch (e) {
       console.log(e);
     }
 
-    setClassName("");
+    setNewClassName("");
     setIsModalOpen(false);
   }
 
   return (
     <>
       <button onClick={() => setIsModalOpen(true)}
-        className={styles.toolbarButton}>Create New Class</button>
+        className={styles.toolbarButton}>Create Class</button>
       <Modal handleClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         heading="Add New Class">
@@ -103,8 +105,8 @@ function AddClassButton({ createRecord, userId }) {
           <label>Class Name</label>
           <input
             type="text"
-            onChange={e => setClassName(e.target.value)}
-            value={className}
+            onChange={e => setNewClassName(e.target.value)}
+            value={newClassName}
             placeholder="Enter name..."
             required
             autoFocus />
@@ -130,11 +132,11 @@ function ClassGrid() {
   return (
     <>
       <main>
-        <div className={styles.toolbar} >
+        <Toolbar>
           <AddClassButton createRecord={createRecord} userId={currentUser?.uid} />
           <AddClassWithCode updateRecord={updateRecord} returnRecord={returnRecord} />
           <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
-        </div>
+        </Toolbar>
         <div className={styles.classGrid}>
           {requestStatus === REQUEST_STATUS.LOADING ? <Loading /> : requestStatus === REQUEST_STATUS.SUCCESS ?
             data.sort((a, b) => a.name > b.name).map((dataItem, idx) => (

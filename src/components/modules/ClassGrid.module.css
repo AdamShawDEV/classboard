@@ -6,11 +6,6 @@
     flex-wrap: wrap;
   }
 
-  .toolbar {
-    background-color: rgb(28, 37, 160);
-    height: 2.8rem;    
-  }
-
   .toolbarButton {
     background-color: rgb(70, 82, 255);
     border-radius: .4rem;

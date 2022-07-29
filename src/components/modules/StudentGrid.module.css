@@ -6,25 +6,6 @@
     flex-wrap: wrap;
 }
 
-.studentFooter {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: rgb(27, 12, 115);
-    background-color: rgb(28, 37, 160);
-    height: 2.8rem;
-}
-
-.countdownNumber {
-    font-size: 4rem;
-    font-weight: 800;
-}
-
-.toolbar {
-    background-color: rgb(28, 37, 160);
-    height: 2.8rem;
-}
-
 .toolbarButton {
     background-color: rgb(70, 82, 255);
     border-radius: .4rem;

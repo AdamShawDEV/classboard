@@ -2,11 +2,14 @@ import StudentCard from "./StudentCard";
 import styles from "./modules/StudentGrid.module.css";
 import { useParams } from 'react-router-dom';
 import { useRequestData, REQUEST_STATUS } from "./hooks/useRequestData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useAuth } from './hooks/AuthContext'
 import Modal from "./Modal";
 import DeleteButton from "./DeleteButtton";
 import Loading from "./Loading";
+import { ClassNameContext } from "./hooks/ClassNameContext";
+import Toolbar from "./Toolbar";
+import CountDownTimer from "./CountDownTimer";
 
 function AddStudentButton({ createRecord }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,8 +23,11 @@ function AddStudentButton({ createRecord }) {
       points: 0
     };
 
-    createRecord(newStudent);
-
+    try {
+      createRecord(newStudent);
+    } catch (e) {
+      console.log(e);
+    }
 
     setStudentName("");
     setIsModalOpen(false);
@@ -89,80 +95,12 @@ function ShareClassButton({ createRecord, classId }) {
   );
 }
 
-function StudentsToolbar({ createRecord, classId, isDeleteEnabled, setIsDeleteEnabled }) {
-  return (
-    <div className={styles.toolbar}>
-      <AddStudentButton createRecord={createRecord} />
-      <ShareClassButton createRecord={createRecord} classId={classId} />
-      <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
-    </div>
-  )
-}
-
-function CountDownTimer() {
-  const [timerActive, setTimerActive] = useState(false);
-  const [secondsRemaining, setSecondsRemaining] = useState(0);
-  const [inputSeconds, setInputSeconds] = useState("");
-
-  useEffect(() => {
-    if (secondsRemaining > 0) {
-      const timerId = setTimeout(() => {
-        setSecondsRemaining(secondsRemaining - 1);
-      }, 1000);
-      return () => clearTimeout(timerId);
-    }
-  });
-
-  function onSubmit(e) {
-    e.preventDefault();
-
-    setSecondsRemaining(inputSeconds);
-  }
-
-  function handleClose() {
-    setTimerActive(false);
-    setInputSeconds();
-    setSecondsRemaining(0);
-  }
-
-  return (
-    <>
-      <button onClick={() => setTimerActive(true)}
-        className={styles.toolbarButton}>
-        Count Down Timer
-      </button>
-      <Modal
-        handleClose={handleClose}
-        isOpen={timerActive}
-        heading="Timer">
-        {secondsRemaining === 0 ?
-          <form onSubmit={(e) => onSubmit(e)} >
-            <input type="number"
-              onChange={(e) => setInputSeconds(e.target.value)}
-              value={inputSeconds} required
-              placeholder="Enter seconds" />
-            <input type="submit" value="Submit" />
-          </form>
-          :
-          <div className={styles.countdownNumber}>{secondsRemaining}</div>
-        }
-      </Modal>
-    </>
-  );
-}
-
-function StudentFooter() {
-  return (
-    <div className={styles.studentFooter}>
-      <CountDownTimer />
-    </div>
-  );
-}
-
 function StudentGrid() {
   const [classInfo, setClassInfo] = useState({});
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(false);
   const { currentUser } = useAuth();
+  const { setCurrentClassName } = useContext(ClassNameContext);
+
   const classId = useParams();
   const {
     data,
@@ -176,10 +114,15 @@ function StudentGrid() {
   useEffect(() => {
     const getRecord = async () => {
       const info = await returnRecord(classId.id, "/classes/");
+
       setClassInfo(info);
+      setCurrentClassName(info.name);
     };
 
     getRecord();
+
+    // remove class name from header
+    return () => setCurrentClassName('');
   }, []);
 
   // check if user has editing rights
@@ -192,11 +135,11 @@ function StudentGrid() {
   return (
     <>
       <main>
-        {canEdit && <StudentsToolbar
-          createRecord={createRecord}
-          classId={classId.id}
-          isDeleteEnabled={isDeleteEnabled}
-          setIsDeleteEnabled={setIsDeleteEnabled} />}
+        {canEdit && <Toolbar>
+          <AddStudentButton createRecord={createRecord} />
+          <ShareClassButton createRecord={createRecord} classId={classId} />
+          <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
+        </Toolbar>}
         <div className={styles.studentGrid}>{requestStatus === REQUEST_STATUS.LOADING ? <Loading /> :
           requestStatus === REQUEST_STATUS.SUCCESS ?
             data.sort((a, b) => a.name > b.name).map((dataItem) => (
@@ -211,7 +154,9 @@ function StudentGrid() {
             )) : <div>An error has occyrred...</div>}
         </div>
       </main>
-      {canEdit && <StudentFooter />}
+      {canEdit && <Toolbar justify={'center'}>
+        <CountDownTimer />
+      </Toolbar>}
     </>
   );
 }

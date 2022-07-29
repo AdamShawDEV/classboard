@@ -49,8 +49,8 @@ function useRequestData(path, requestQuery = null) {
         return docSnap.data();
     }
 
-    function deleteRecord(id) {
-        const docRef = doc(db, path, id);
+    function deleteRecord(id, docPath = path) {
+        const docRef = doc(db, docPath, id);
         deleteDoc(docRef);
     }
 
