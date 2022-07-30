@@ -1,13 +1,15 @@
-.toolbarButton {
-    background-color: rgb(70, 82, 255);
+.button {
+    background-color: rgb(186, 190, 251);
     border-radius: .4rem;
     border: none;
-    padding: .2rem .4rem;
+    padding: .4rem;
     font-size: 1.2rem;
     font-weight: 600;
     margin: .4rem .4rem;
+    align-self: center;
+    width:max-content;
   }
-
-  .toolbarButton:hover {
+  
+  .button:hover {
     background-color: rgb(101, 111, 253);
   }
