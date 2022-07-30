@@ -16,7 +16,7 @@ function UserBadge() {
 
     return (
         <div onClick={() => setIsModalOpen(true)} className={styles.loggedIn}>
-            <div className={styles.userName}>{currentUser?.displayName}</div>
+            <span className={styles.userName}>{currentUser?.displayName}</span>
             <img src={currentUser?.photoURL} className={styles.userImage} />
             <Modal handleClose={() => setIsModalOpen(false)}
                 isOpen={isModalOpen}
@@ -36,9 +36,9 @@ function UserControl() {
     const { currentUser } = useAuth();
 
     return (
-        <div className={styles.userContainer}>
+        <>
             {currentUser ? <UserBadge /> : <LoginButton />}
-        </div>
+        </>
     );
 }
 
