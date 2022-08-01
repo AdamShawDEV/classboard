@@ -14,44 +14,64 @@ function useRequestData(path, requestQuery = null) {
 
     useEffect((() => {
         // TODO: add error handling
-        if (requestQuery) {
-            const q = query(collection(db, path), where(requestQuery.prop, requestQuery.condition, requestQuery.value));
-            const unSub = onSnapshot(q, snapshot => {
-                setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-                setRequestStatus(REQUEST_STATUS.SUCCESS);
-            });
+        try {
+            if (requestQuery) {
+                const q = query(collection(db, path), where(requestQuery.prop, requestQuery.condition, requestQuery.value));
+                const unSub = onSnapshot(q, snapshot => {
+                    setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+                    setRequestStatus(REQUEST_STATUS.SUCCESS);
+                });
 
-            return () => unSub();
-        } else {
-            const colectionRef = collection(db, path);
-            const unSub = onSnapshot(colectionRef, snapshot => {
-                setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-                setRequestStatus(REQUEST_STATUS.SUCCESS);
-            });
+                return () => unSub();
+            } else {
+                const colectionRef = collection(db, path);
+                const unSub = onSnapshot(colectionRef, snapshot => {
+                    setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+                    setRequestStatus(REQUEST_STATUS.SUCCESS);
+                });
 
-            return () => unSub();
+                return () => unSub();
+            }
+        } catch (e) {
+            setRequestStatus(REQUEST_STATUS.FAILURE);
         }
     }), []);
 
     async function createRecord(rec, docPath = path) {
-        const colectionRef = collection(db, docPath);
-        return await addDoc(colectionRef, rec);
+        try {
+            const colectionRef = collection(db, docPath);
+            return await addDoc(colectionRef, rec);
+        } catch (e) {
+            setRequestStatus(REQUEST_STATUS.FAILURE);
+        }
     }
 
     function updateRecord(id, rec, docPath = path) {
-        const docRef = doc(db, docPath, id);
-        updateDoc(docRef, rec);
+        try {
+            const docRef = doc(db, docPath, id);
+            updateDoc(docRef, rec);
+        } catch (e) {
+            setRequestStatus(REQUEST_STATUS.FAILURE);
+        }
     }
 
     async function returnRecord(id, docPath = path) {
-        const docRef = doc(db, docPath, id);;
-        const docSnap = await getDoc(docRef);
-        return docSnap.data();
+        try {
+            const docRef = doc(db, docPath, id);;
+            const docSnap = await getDoc(docRef);
+            return docSnap.data();
+        } catch (e) {
+            setRequestStatus(REQUEST_STATUS.FAILURE);
+        }
     }
 
     function deleteRecord(id, docPath = path) {
-        const docRef = doc(db, docPath, id);
-        deleteDoc(docRef);
+        try {
+            const docRef = doc(db, docPath, id);
+            deleteDoc(docRef);
+        } catch (e) {
+            setRequestStatus(REQUEST_STATUS.FAILURE);
+        }
     }
 
 

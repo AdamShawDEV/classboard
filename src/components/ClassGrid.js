@@ -22,7 +22,6 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
     e.preventDefault();
 
     const shareData = await returnRecord(shareCode.trim(), '/shareCodes/');
-    console.log(shareData);
 
     if (!shareData) {
       alert('Invalid code.');
@@ -46,6 +45,7 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
     const newEditors = { editors: [...classRec.editors, currentUser.uid] };
     updateRecord(shareData.classId, newEditors, '/classes/');
     updateRecord(shareCode, { isUsed: true }, '/shareCodes/');
+    setIsModalOpen(false);
   }
 
   return (
@@ -84,12 +84,7 @@ function AddClassButton({ createRecord, userId }) {
       editors: [userId],
     };
     
-    try {
-      createRecord(newClass);
-    } catch (e) {
-      console.log(e);
-    }
-
+    createRecord(newClass);
     setNewClassName("");
     setIsModalOpen(false);
   }

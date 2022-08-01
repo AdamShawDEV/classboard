@@ -23,12 +23,7 @@ function AddStudentButton({ createRecord }) {
       points: 0
     };
 
-    try {
-      createRecord(newStudent);
-    } catch (e) {
-      console.log(e);
-    }
-
+    createRecord(newStudent);
     setStudentName("");
     setIsModalOpen(false);
   }
@@ -76,7 +71,6 @@ function ShareClassButton({ createRecord, classId }) {
     const docRef = await createRecord(rec, '/shareCodes/');
     setShareCode(docRef.id);
     setIsModalOpen(true);
-    console.log(rec);
   }
 
   return (
@@ -137,7 +131,7 @@ function StudentGrid() {
       <main>
         {canEdit && <Toolbar>
           <AddStudentButton createRecord={createRecord} />
-          <ShareClassButton createRecord={createRecord} classId={classId} />
+          <ShareClassButton createRecord={createRecord} classId={classId.id} />
           <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
         </Toolbar>}
         <div className={styles.studentGrid}>{requestStatus === REQUEST_STATUS.LOADING ? <Loading /> :
@@ -154,7 +148,7 @@ function StudentGrid() {
             )) : <div>An error has occyrred...</div>}
         </div>
       </main>
-      {canEdit && <Toolbar justify={'center'}>
+      {canEdit && <Toolbar justify='center'>
         <CountDownTimer />
       </Toolbar>}
     </>
