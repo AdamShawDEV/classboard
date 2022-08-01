@@ -38,14 +38,14 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
 
     if (classRec.editors.includes(currentUser.uid)) {
       alert('Already added');
-      setIsModalOpen(false);
+      closeModal();
       return;
     }
 
     const newEditors = { editors: [...classRec.editors, currentUser.uid] };
     updateRecord(shareData.classId, newEditors, '/classes/');
     updateRecord(shareCode, { isUsed: true }, '/shareCodes/');
-    setIsModalOpen(false);
+    closeModal();
   }
 
   return (
