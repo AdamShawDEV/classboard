@@ -1,14 +1,15 @@
 import styles from "./modules/Classitem.module.css";
 import { useNavigate } from 'react-router-dom';
 import { RiDeleteBin5Fill } from 'react-icons/ri'
+import { deleteRecord } from '../firebase';
 
-function ClassItem({ nameOfClass, classId, isDeleteEnabled, deleteRecord }) {
+function ClassItem({ nameOfClass, classId, isDeleteEnabled }) {
   const navigate = useNavigate();
 
   function deleteClass(e) {
     e.stopPropagation();
 
-    deleteRecord(classId);
+    deleteRecord(classId, "/classes");
   }
 
   return (

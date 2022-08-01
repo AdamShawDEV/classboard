@@ -2,13 +2,14 @@ import ClassItem from "./ClassItem";
 import styles from "./modules/ClassGrid.module.css";
 import { useRequestData, REQUEST_STATUS } from "./hooks/useRequestData";
 import { useAuth } from './hooks/AuthContext';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Modal from "./Modal";
 import DeleteButton from "./DeleteButtton";
 import Loading from "./Loading";
 import Toolbar from "./Toolbar";
+import { returnRecord, updateRecord, createRecord } from '../firebase';
 
-function AddClassWithCode({ returnRecord, updateRecord }) {
+function AddClassWithCode( ) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shareCode, setShareCode] = useState('');
   const { currentUser } = useAuth();
@@ -71,7 +72,7 @@ function AddClassWithCode({ returnRecord, updateRecord }) {
   );
 }
 
-function AddClassButton({ createRecord, userId }) {
+function AddClassButton({ userId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newClassName, setNewClassName] = useState("");
 
@@ -84,7 +85,7 @@ function AddClassButton({ createRecord, userId }) {
       editors: [userId],
     };
     
-    createRecord(newClass);
+    createRecord(newClass, "/classes");
     setNewClassName("");
     setIsModalOpen(false);
   }
@@ -118,18 +119,14 @@ function ClassGrid() {
   const {
     data,
     requestStatus,
-    createRecord,
-    updateRecord,
-    returnRecord,
-    deleteRecord,
   } = useRequestData("/classes", { prop: "editors", condition: "array-contains", value: currentUser?.uid });
 
   return (
     <>
       <main>
         <Toolbar>
-          <AddClassButton createRecord={createRecord} userId={currentUser?.uid} />
-          <AddClassWithCode updateRecord={updateRecord} returnRecord={returnRecord} />
+          <AddClassButton userId={currentUser?.uid} />
+          <AddClassWithCode  />
           <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
         </Toolbar>
         <div className={styles.classGrid}>
@@ -140,7 +137,6 @@ function ClassGrid() {
                 nameOfClass={dataItem.name}
                 classId={dataItem.id}
                 isDeleteEnabled={isDeleteEnabled}
-                deleteRecord={deleteRecord}
               />
             )) : <div>An error has occurred...</div>}
         </div>

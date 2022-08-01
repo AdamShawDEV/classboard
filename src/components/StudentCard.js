@@ -2,10 +2,11 @@ import { useState, memo } from "react";
 import Modal from "./Modal";
 import styles from "./modules/StudentCard.module.css";
 import { RiDeleteBin5Fill } from 'react-icons/ri'
+import { updateRecord, deleteRecord } from '../firebase';
 
 
 const StudentCard = memo(({ studentId, studentName, studentPoints,
-  canEdit, updateRecord, isDeleteEnabled, deleteRecord }) => {
+  canEdit, isDeleteEnabled, path }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const cardClicked = () => {
@@ -19,13 +20,13 @@ const StudentCard = memo(({ studentId, studentName, studentPoints,
   const onPointButtonClickFunction = (pointDiff) => {
     let points = studentPoints + pointDiff;
 
-    updateRecord(studentId, { points, });
+    updateRecord(studentId, { points, }, path);
   }
 
   const deleteStudent = (e) => {
     e.stopPropagation();
 
-    deleteRecord(studentId);
+    deleteRecord(studentId, path);
   };
 
   return (

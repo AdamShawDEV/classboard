@@ -10,8 +10,9 @@ import Loading from "./Loading";
 import { ClassNameContext } from "./hooks/ClassNameContext";
 import Toolbar from "./Toolbar";
 import CountDownTimer from "./CountDownTimer";
+import { createRecord, returnRecord } from '../firebase';
 
-function AddStudentButton({ createRecord }) {
+function AddStudentButton({ path }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentName, setStudentName] = useState("");
 
@@ -23,7 +24,7 @@ function AddStudentButton({ createRecord }) {
       points: 0
     };
 
-    createRecord(newStudent);
+    createRecord(newStudent, path);
     setStudentName("");
     setIsModalOpen(false);
   }
@@ -55,7 +56,7 @@ function AddStudentButton({ createRecord }) {
   );
 }
 
-function ShareClassButton({ createRecord, classId }) {
+function ShareClassButton({ classId }) {
   const { currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shareCode, setShareCode] = useState('');
@@ -96,19 +97,16 @@ function StudentGrid() {
   const { setCurrentClassName } = useContext(ClassNameContext);
 
   const classId = useParams();
+  const path = `/classes/${classId.id}/students/`
   const {
     data,
     requestStatus,
-    returnRecord,
-    updateRecord,
-    createRecord,
-    deleteRecord,
-  } = useRequestData(`/classes/${classId.id}/students/`);
+  } = useRequestData(path);
 
   useEffect(() => {
     const getRecord = async () => {
       const info = await returnRecord(classId.id, "/classes/");
-
+      
       setClassInfo(info);
       setCurrentClassName(info.name);
     };
@@ -130,7 +128,7 @@ function StudentGrid() {
     <>
       <main>
         {canEdit && <Toolbar>
-          <AddStudentButton createRecord={createRecord} />
+          <AddStudentButton path={path} />
           <ShareClassButton createRecord={createRecord} classId={classId.id} />
           <DeleteButton isDeleteEnabled={isDeleteEnabled} setIsDeleteEnabled={setIsDeleteEnabled} />
         </Toolbar>}
@@ -142,9 +140,8 @@ function StudentGrid() {
                 studentId={dataItem.id}
                 studentName={dataItem.name}
                 studentPoints={dataItem.points}
-                updateRecord={updateRecord}
                 isDeleteEnabled={isDeleteEnabled}
-                deleteRecord={deleteRecord} />
+                path={path}/>
             )) : <div>An error has occyrred...</div>}
         </div>
       </main>
