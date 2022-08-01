@@ -16,8 +16,8 @@ function UserBadge() {
 
     return (
         <div onClick={() => setIsModalOpen(true)} className={styles.loggedIn}>
-            <span className={styles.userName}>{currentUser?.displayName}</span>
-            <img src={currentUser?.photoURL} className={styles.userImage} />
+            <span className={styles.userName}>{currentUser.displayName ? currentUser.displayName : 'logout'}</span>
+            {currentUser.photoURL && <img src={currentUser?.photoURL} alt='user image' className={styles.userImage} />}
             <Modal handleClose={() => setIsModalOpen(false)}
                 isOpen={isModalOpen}
                 heading="Logout?">

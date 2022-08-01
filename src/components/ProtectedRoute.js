@@ -1,6 +1,6 @@
 import { useAuth } from './hooks/AuthContext';
-import { Route, useNavigate } from 'react-router-dom';
-import { Component, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 function ProtectedRoute({ component, redirect }) {

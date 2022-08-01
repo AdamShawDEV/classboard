@@ -35,7 +35,7 @@ function useRequestData(path, requestQuery = null) {
         } catch (e) {
             setRequestStatus(REQUEST_STATUS.FAILURE);
         }
-    }), []);
+    }), [path, requestQuery]);
 
     async function createRecord(rec, docPath = path) {
         try {

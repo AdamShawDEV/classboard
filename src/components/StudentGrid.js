@@ -117,7 +117,7 @@ function StudentGrid() {
 
     // remove class name from header
     return () => setCurrentClassName('');
-  }, []);
+  }, [classId.id]);
 
   // check if user has editing rights
   let canEdit = false;
