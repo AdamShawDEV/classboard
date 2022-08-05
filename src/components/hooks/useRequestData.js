@@ -34,7 +34,7 @@ function useRequestData(path, requestQuery = null) {
         } catch (e) {
             setRequestStatus(REQUEST_STATUS.FAILURE);
         }
-    }), [path, requestQuery]);
+    }), []);
 
     return { data, requestStatus };
 }
